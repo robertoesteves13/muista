@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/course.hpp"
 #include <QContextMenuEvent>
 #include <QWidget>
 
@@ -12,8 +13,7 @@ QT_END_NAMESPACE
 class CourseListButton : public QWidget {
     Q_OBJECT
   public:
-    CourseListButton(QWidget *parent = nullptr, int id = 0, QString label = "",
-                     QString description = "");
+    CourseListButton(QWidget *parent = nullptr, Course* course = nullptr);
     ~CourseListButton();
   public slots:
       void deleteCourse();
@@ -28,5 +28,5 @@ class CourseListButton : public QWidget {
     QMenu *contextMenu;
     QAction *actionEdit, *actionDelete;
 
-    int id;
+    Course* course;
 };

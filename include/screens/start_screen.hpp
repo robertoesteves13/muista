@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/course.hpp"
 #include "widgets/course_list_button.hpp"
 
 #include <QWidget>
@@ -16,7 +17,7 @@ class StartScreen : public QWidget {
     StartScreen(QWidget *parent = nullptr);
     ~StartScreen();
 
-    void insertCourse(int id, QString name, QString desc);
+    void insertCourse(Course* course);
     void removeItem(CourseListButton* button);
     void checkIfEmpty();
   public slots:

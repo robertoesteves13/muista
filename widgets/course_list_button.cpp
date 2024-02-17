@@ -6,12 +6,13 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-CourseListButton::CourseListButton(QWidget *parent, int id, QString label,
-                                   QString description)
+CourseListButton::CourseListButton(QWidget *parent, Course* course)
     : QWidget(parent), ui(new Ui::CourseListButton) {
     this->ui->setupUi(this);
-    this->id = id;
-    this->ui->name->setText(label);
+    this->course = course;
+    this->course->setParent(this);
+
+    this->ui->name->setText(course->name);
 
     this->contextMenu = new QMenu(this);
     this->actionEdit = this->contextMenu->addAction("Edit");
@@ -26,7 +27,7 @@ void CourseListButton::deleteCourse() {
     QString sql = "DELETE FROM courses WHERE (id_pk = :id)";
 
     query.prepare(sql);
-    query.bindValue(":id", this->id);
+    query.bindValue(":id", this->course->id);
 
     if (!query.exec()) {
         qDebug() << "Some error ocurred while deleting a course"

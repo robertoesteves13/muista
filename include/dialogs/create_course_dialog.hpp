@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/course.hpp"
+
 #include <QDialog>
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +16,7 @@ public:
   CreateCourseDialog(QWidget *parent = nullptr);
   ~CreateCourseDialog();
 signals:
-  void createCourse(QString, QString);
+  void createCourse(Course* course);
 public slots:
   void accept() override;
 private:

@@ -33,7 +33,9 @@ void StartScreen::updateList() {
         int id = query.value(0).toInt();
         QString name = query.value(1).toString();
         QString desc = query.value(2).toString();
-        auto button = new CourseListButton(this, id, name, desc);
+
+        auto course = new Course(this, id, name, desc);
+        auto button = new CourseListButton(this, course);
 
         this->ui->courseList->addWidget(button);
     }
@@ -58,8 +60,8 @@ void StartScreen::checkIfEmpty() {
     }
 }
 
-void StartScreen::insertCourse(int id, QString name, QString desc) {
-    auto button = new CourseListButton(this, id, name, desc);
+void StartScreen::insertCourse(Course* course) {
+    auto button = new CourseListButton(this, course);
 
     auto item = this->ui->courseList->itemAt(0);
     if (item) {

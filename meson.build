@@ -13,6 +13,7 @@ qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Widgets', 'Sql'])
 
 muista_inc = include_directories('include')
 
+subdir('common')
 subdir('widgets')
 subdir('dialogs')
 subdir('screens')

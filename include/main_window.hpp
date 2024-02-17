@@ -9,16 +9,17 @@ class MainWindow;
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-  Q_OBJECT
-public:
-  MainWindow(QWidget *parent = nullptr);
-  ~MainWindow();
-public slots:
-  void createCourse(QString name, QString desc);
-  void openCreateCourseDiag();
-  void changeScreen(QWidget* widget);
+    Q_OBJECT
+  public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+  public slots:
+    void openCreateCourseDiag();
+    void ChangeToStart();
 
-private:
-  int startDatabase();
-  Ui::MainWindow *ui;
+  private:
+    void changeScreen(QWidget *widget);
+
+  private:
+    Ui::MainWindow *ui;
 };

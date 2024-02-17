@@ -76,6 +76,6 @@
   </connection>
  </connections>
  <slots>
-  <signal>createCourse(QString,QString)</signal>
+  <signal>createCourse(Course*)</signal>
  </slots>
 </ui>

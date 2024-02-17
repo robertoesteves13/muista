@@ -10,7 +10,8 @@ CreateCourseDialog::CreateCourseDialog(QWidget *parent)
 }
 
 void CreateCourseDialog::accept() {
-  emit this->createCourse(this->ui->nameEdit->text(), this->ui->descEdit->toPlainText());
+  auto course = new Course(nullptr, 0, this->ui->nameEdit->text(), this->ui->descEdit->toPlainText());
+  emit this->createCourse(course);
   this->deleteLater();
 }
 
