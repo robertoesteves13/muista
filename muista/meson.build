@@ -1,10 +1,9 @@
 muista_ui = qt6.compile_ui(
-  sources: ['ui/main_window.ui', 'ui/edit_course_window.ui'],
+  sources: ['ui/main_window.ui' ],
 )
 
 muista_moc = qt6.compile_moc(headers: [
     '../include/main_window.hpp',
-    '../include/edit_course.hpp',
     '../include/application.hpp',
   ], dependencies: qt6_dep)
 
@@ -14,7 +13,6 @@ executable(
   files(
     'main.cpp',
     'main_window.cpp',
-    'edit_course.cpp',
     'application.cpp',
   ), muista_ui, muista_moc,
   include_directories: muista_inc,

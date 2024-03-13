@@ -1,5 +1,7 @@
 common_src = files(
   'course.cpp',
+  'module.cpp',
+  'word.cpp',
 )
 
 common_moc = qt6.compile_moc( 

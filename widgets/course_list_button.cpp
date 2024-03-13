@@ -1,3 +1,4 @@
+#include "widgets/course_list_button.hpp"
 #include "./ui_course_list_button.h"
 #include "screens/start_screen.hpp"
 
@@ -6,7 +7,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-CourseListButton::CourseListButton(QWidget *parent, Course* course)
+CourseListButton::CourseListButton(QWidget *parent, Course *course)
     : QWidget(parent), ui(new Ui::CourseListButton) {
     this->ui->setupUi(this);
     this->course = course;
@@ -20,6 +21,9 @@ CourseListButton::CourseListButton(QWidget *parent, Course* course)
 
     connect(this->actionDelete, &QAction::triggered, this,
             &CourseListButton::deleteCourse);
+
+    connect(this->actionEdit, &QAction::triggered, this,
+            &CourseListButton::editCourse);
 }
 
 void CourseListButton::deleteCourse() {
@@ -34,8 +38,14 @@ void CourseListButton::deleteCourse() {
                  << query.lastError().text();
     }
 
-    if (auto screen = qobject_cast<StartScreen*>(this->parent())) {
+    if (auto screen = qobject_cast<StartScreen *>(this->parent())) {
         screen->removeItem(this);
+    }
+}
+
+void CourseListButton::editCourse() {
+    if (auto screen = qobject_cast<StartScreen *>(this->parent())) {
+        screen->editCourse(course);
     }
 }
 

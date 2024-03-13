@@ -16,6 +16,7 @@ class CourseListButton : public QWidget {
     CourseListButton(QWidget *parent = nullptr, Course* course = nullptr);
     ~CourseListButton();
   public slots:
+      void editCourse();
       void deleteCourse();
 
   protected:

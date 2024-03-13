@@ -17,11 +17,17 @@ class StartScreen : public QWidget {
     StartScreen(QWidget *parent = nullptr);
     ~StartScreen();
 
-    void insertCourse(Course* course);
-    void removeItem(CourseListButton* button);
+    void insertCourse(Course *course);
+    void removeItem(CourseListButton *button);
     void checkIfEmpty();
   public slots:
     void updateList();
+
+    void editCourse(Course *course);
+    void openCourse(Course *course);
+  signals:
+    void editCourseListener(Course *course);
+    void openCourseListener(Course *course);
 
   private:
     Ui::StartScreen *ui;

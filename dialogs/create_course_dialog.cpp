@@ -2,7 +2,6 @@
 #include "./ui_create_course_dialog.h"
 
 #include <QListWidget>
-#include <format>
 
 CreateCourseDialog::CreateCourseDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::CreateCourseDialog) {

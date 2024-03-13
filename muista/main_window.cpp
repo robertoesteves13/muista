@@ -2,6 +2,7 @@
 #include "./ui_main_window.h"
 #include "application.hpp"
 #include "dialogs/create_course_dialog.hpp"
+#include "screens/course_editor_screen.hpp"
 #include "screens/start_screen.hpp"
 
 #include <QDir>
@@ -21,6 +22,12 @@ void MainWindow::ChangeToStart() {
     auto startScreen = new StartScreen(this);
     startScreen->updateList();
     this->changeScreen(startScreen);
+}
+
+void MainWindow::ChangeToEditor(Course *course) {
+    auto editor = new CourseEditorScreen(this);
+    editor->SetCourse(course);
+    this->changeScreen(editor);
 }
 
 MainWindow::~MainWindow() { delete ui; }

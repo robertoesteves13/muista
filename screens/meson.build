@@ -1,18 +1,21 @@
 screen_src = files(
   'course_screen.cpp',
+  'course_editor_screen.cpp',
   'start_screen.cpp',
 )
 
 screen_ui = qt6.compile_ui(
   sources: [
     'ui/start_screen.ui',
-    'ui/course_screen.ui'
+    'ui/course_screen.ui',
+    'ui/course_editor_screen.ui',
   ]
 )
 
 screen_moc = qt6.compile_moc(headers: [
     '../include/screens/start_screen.hpp',
     '../include/screens/course_screen.hpp',
+    '../include/screens/course_editor_screen.hpp',
   ], dependencies: qt6_dep)
 
 lib_screens = static_library(

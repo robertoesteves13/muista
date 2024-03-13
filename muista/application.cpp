@@ -6,7 +6,7 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
-MuistaApp::MuistaApp(int argc, char **argv) : QApplication(argc, argv) { 
+MuistaApp::MuistaApp(int argc, char **argv) : QApplication(argc, argv) {
     this->startDatabase();
 }
 

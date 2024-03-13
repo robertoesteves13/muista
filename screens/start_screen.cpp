@@ -1,4 +1,5 @@
 #include "screens/start_screen.hpp"
+#include "main_window.hpp"
 #include "ui_start_screen.h"
 #include "widgets/course_list_button.hpp"
 
@@ -9,6 +10,11 @@
 StartScreen::StartScreen(QWidget *parent)
     : QWidget(parent), ui(new Ui::StartScreen) {
     this->ui->setupUi(this);
+
+    connect(this, &StartScreen::openCourseListener, this,
+            &StartScreen::openCourse);
+    connect(this, &StartScreen::editCourseListener, this,
+            &StartScreen::editCourse);
 }
 
 StartScreen::~StartScreen() { delete ui; }
@@ -43,7 +49,7 @@ void StartScreen::updateList() {
     this->checkIfEmpty();
 }
 
-void StartScreen::removeItem(CourseListButton* button) {
+void StartScreen::removeItem(CourseListButton *button) {
     if (button) {
         this->ui->courseList->removeWidget(button);
         delete button;
@@ -60,15 +66,23 @@ void StartScreen::checkIfEmpty() {
     }
 }
 
-void StartScreen::insertCourse(Course* course) {
+void StartScreen::insertCourse(Course *course) {
     auto button = new CourseListButton(this, course);
 
     auto item = this->ui->courseList->itemAt(0);
     if (item) {
-        if (qobject_cast<QLabel*>(item->widget())) {
+        if (qobject_cast<QLabel *>(item->widget())) {
             delete this->ui->courseList->takeAt(0)->widget();
         }
     }
 
     this->ui->courseList->addWidget(button);
 }
+
+void StartScreen::editCourse(Course *course) {
+    if (auto window = qobject_cast<MainWindow *>(this->parent()->parent())) {
+        window->ChangeToEditor(course);
+    }
+}
+
+void StartScreen::openCourse(Course *course) {}
