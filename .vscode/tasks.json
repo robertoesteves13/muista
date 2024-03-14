@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure Build",
+      "type": "shell",
+      "command": "meson setup build",
+      "group": "meson",
+    },
+    {
+      "label": "Build Program",
+      "type": "shell",
+      "command": "ninja -C build",
+      "group": "meson",
+    },
+    {
+      "label": "Run Program",
+      "type": "shell",
+      "command": "./build/muista/muista",
+      "group": "meson",
+    }
+  ]
+}
