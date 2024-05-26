@@ -1,13 +1,18 @@
-#include "application.hpp"
-#include "main_window.hpp"
-
-#include <QApplication>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
 int main(int argc, char **argv) {
-    MuistaApp app(argc, argv);
+    QGuiApplication app(argc, argv);
 
-    MainWindow main;
-    main.show();
+    QQmlApplicationEngine engine;
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(
+        &engine,
+        &QQmlApplicationEngine::objectCreationFailed,
+        &app,
+        []() { QCoreApplication::exit(-1); },
+        Qt::QueuedConnection);
+    engine.load(url);
 
     return app.exec();
 }

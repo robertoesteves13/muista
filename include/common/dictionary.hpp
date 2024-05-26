@@ -1,0 +1,71 @@
+#pragma once
+
+#include <string_view>
+
+#include <QObject>
+#include <QVector>
+
+class Category : public QObject {
+    Q_OBJECT
+  public:
+    Category(QObject *parent = nullptr);
+    ~Category();
+
+  public:
+    QString title;
+    QString description;
+    QVector<QString> possible_values;
+};
+
+class Definition : public QObject {
+    Q_OBJECT
+  public:
+    Definition(QObject *parent = nullptr, QString pMeaning = nullptr,
+               QString pObservation = nullptr);
+    ~Definition();
+
+  public:
+    QString meaning;
+    QString observation;
+};
+
+class Word : public QObject {
+    Q_OBJECT
+  public:
+    Word(QObject *parent = nullptr, QString pValue = nullptr);
+    ~Word();
+
+    void AddChild(Word &pWord);
+    void AddDefinition(Definition *definition);
+    void AddCategory(Category *category);
+    void SetParent(Word &pWord);
+
+    QString GetHash();
+
+    QStringView Value() { return value; };
+
+  private:
+    QString value;
+    QVector<Definition *> definitions;
+    QVector<Category *> categories;
+
+    Word *antecessor;
+    QVector<Word *> descendants;
+};
+
+class Dictionary : public QObject {
+    Q_OBJECT
+  public:
+    Dictionary(QObject *parent = nullptr);
+    ~Dictionary();
+
+    void RelateWords(std::string_view pAntecessor, std::string_view pChild);
+
+  public slots:
+    void AddWord(QString pWord, QString pDefinition);
+    void RemoveWord(Word *pWord);
+
+  private:
+    QVector<Word> words;
+    QVector<Category> categories;
+};

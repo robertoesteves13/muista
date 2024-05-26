@@ -18,6 +18,12 @@
       "type": "shell",
       "command": "./build/muista/muista",
       "group": "meson",
+    },
+    {
+      "label": "Run Unit tests",
+      "type": "shell",
+      "command": "./build/tests/muista-tests",
+      "group": "meson",
     }
   ]
 }

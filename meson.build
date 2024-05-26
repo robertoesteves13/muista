@@ -9,12 +9,11 @@ project('muista', 'cpp',
 )
 
 qt6 = import('qt6')
-qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Widgets', 'Sql'])
+qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Quick', 'Qml', 'Sql', 'Test'])
 
 muista_inc = include_directories('include')
 
 subdir('common')
-subdir('widgets')
-subdir('dialogs')
-subdir('screens')
+subdir('resources')
+subdir('tests')
 subdir('muista')
