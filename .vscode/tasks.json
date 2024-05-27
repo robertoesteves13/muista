@@ -17,12 +17,14 @@
       "label": "Run Program",
       "type": "shell",
       "command": "./build/muista/muista",
+      "dependsOn": ["Build Program"],
       "group": "meson",
     },
     {
       "label": "Run Unit tests",
       "type": "shell",
       "command": "./build/tests/muista-tests",
+      "dependsOn": ["Build Program"],
       "group": "meson",
     }
   ]
