@@ -6,4 +6,5 @@ executable(
   include_directories: muista_inc,
   link_with: [lib_commons],
   dependencies: [qt6_dep],
+  install: true,
 )

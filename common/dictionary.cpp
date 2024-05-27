@@ -1,5 +1,4 @@
 #include "common/dictionary.hpp"
-#include "qassert.h"
 
 #include <QDebug>
 
