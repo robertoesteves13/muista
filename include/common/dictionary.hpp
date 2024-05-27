@@ -36,11 +36,12 @@ class Word : public QObject {
     ~Word();
 
     void AddChild(Word &pWord);
-    void AddDefinition(Definition *definition);
+    void AddDefinition(QString pMeaning);
     void AddCategory(Category *category);
     void SetParent(Word &pWord);
 
     QString GetHash();
+    static QString Hash(QStringView value);
 
     QStringView Value() { return value; };
 
@@ -60,12 +61,13 @@ class Dictionary : public QObject {
     ~Dictionary();
 
     void RelateWords(std::string_view pAntecessor, std::string_view pChild);
+    QVector<Word *> SearchWord(QStringView pWord);
 
   public slots:
     void AddWord(QString pWord, QString pDefinition);
     void RemoveWord(Word *pWord);
 
   private:
-    QVector<Word> words;
-    QVector<Category> categories;
+    QVector<Word*> words;
+    QVector<Category*> categories;
 };
