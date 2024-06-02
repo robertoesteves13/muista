@@ -62,7 +62,7 @@ QString Word::Hash(QStringView value) {
             }
         }
 
-        for (int i = 0; i < K_VALUE; i++) {
+        for (int i = 0; i < K_VALUE && hashes[i].ch != curr.ch; i++) {
             if (curr.count > hashes[i].count) {
                 WordHash swap = hashes[i];
                 hashes[i] = curr;
@@ -90,10 +90,12 @@ void Dictionary::AddWord(QString pWord, QString pDefinition) {
     this->words.push_back(word);
 }
 
-void Dictionary::RemoveWord(Word *pWord) {}
+void Dictionary::RemoveWord(Word *pWord) { qFatal() << "not implemented"; }
 
 void Dictionary::RelateWords(std::string_view pAntecessor,
-                             std::string_view pChild) {}
+                             std::string_view pChild) {
+    qFatal() << "not implemented";
+}
 
 int dst_string(QStringView hash1, QStringView hash2) {
     Q_ASSERT(hash1.length() == hash2.length());

@@ -13,6 +13,7 @@ class WordTest : public QObject {
         QTest::addColumn<QString>("result");
 
         QTest::addRow("english") << new Word(this, "coyote") << "o2c1y1";
+        QTest::addRow("english") << new Word(this, "poo") << "o2p100";
         QTest::addRow("spanish") << new Word(this, "perro") << "r2e1p1";
         QTest::addRow("portuguese") << new Word(this, "caiaque") << "a2c1i1";
         QTest::addRow("japanese")
