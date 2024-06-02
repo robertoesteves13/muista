@@ -1,5 +1,6 @@
-import QtQuick
 import QtQuick.Controls
+
+import "start_screen"
 
 ApplicationWindow {
     width: 640
@@ -27,6 +28,7 @@ ApplicationWindow {
                 text: qsTr("&Quit")
             }
         }
+
         Menu {
             title: qsTr("&Edit")
             Action {
@@ -39,24 +41,16 @@ ApplicationWindow {
                 text: qsTr("&Paste")
             }
         }
+
         Menu {
             title: qsTr("&Help")
             Action {
                 text: qsTr("&About")
-                onTriggered: popup.open()
             }
-        }
-
-        Popup {
-            id: popup
-            x: 100
-            y: 100
-            width: 200
-            height: 300
-            modal: true
-            focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
         }
     }
 
+    StartScreen {
+        anchors.fill: parent
+    }
 }

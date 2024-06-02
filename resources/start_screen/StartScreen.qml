@@ -2,18 +2,19 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import dev.robertoesteves.muista
+
 Item {
+    id: root
+    property list<Course> courses
+
     ColumnLayout {
         anchors.fill: parent
 
-        Rectangle {
-            Layout.preferredWidth: parent.width
-            Layout.preferredHeight: 32
-            Text {
-                anchors.centerIn: parent
-                text: "<b>Course list</b>"
-                font.pointSize: 20
-            }
+        Text {
+            Layout.alignment: Qt.AlignCenter
+            text: "<b>Course list</b>"
+            font.pointSize: 20
         }
 
         ScrollView {
@@ -28,12 +29,16 @@ Item {
                 bottomPadding: 12
                 spacing: 12
 
-                CourseItem {
-                    name: "Course 1"
+                ListView {
+                    model: root.courses
+                    delegate: CourseItem {
+                        identifier: id
+                        name: name
+                    }
                 }
 
-                CourseItem {
-                    name: "Course 2"
+                Rectangle {
+                    color: "red"
                 }
             }
         }
@@ -45,10 +50,29 @@ Item {
 
             Button {
                 text: "Create"
+                onPressed: addCourse.visible = true
             }
 
             Button {
                 text: "Settings"
+            }
+        }
+    }
+
+    Popup {
+        id: addCourse
+
+        anchors.centerIn: Overlay.overlay
+        contentWidth: view.implicitWidth
+        contentHeight: view.implicitHeight
+
+        modal: true
+        focus: true
+
+        AddCourse {
+            id: view
+            onOnCancel: () => {
+                addCourse.visible = false;
             }
         }
     }

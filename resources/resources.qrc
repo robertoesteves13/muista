@@ -5,6 +5,7 @@
     <file>main.qml</file>
 
     <file>start_screen/StartScreen.qml</file>
+    <file>start_screen/AddCourse.qml</file>
     <file>start_screen/CourseItem.qml</file>
 </qresource>
 

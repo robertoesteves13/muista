@@ -4,8 +4,10 @@ import QtQuick.Layouts
 
 Item {
     id: root
-    property string name: "Course Name"
+    required property int identifier
+    required property string name
     property real padding: 16
+
     width: parent.width
     height: 24
 
