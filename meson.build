@@ -2,7 +2,7 @@ project('muista', 'cpp',
   default_options: [
     'warning_level=2',
     'optimization=2',
-    'buildtype=release',
+    'buildtype=debugoptimized',
     'debug=true',
     'cpp_std=c++20',
   ]
