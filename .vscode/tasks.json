@@ -23,7 +23,7 @@
     {
       "label": "Run Unit tests",
       "type": "shell",
-      "command": "./build/tests/muista-tests",
+      "command": "meson test -C build",
       "dependsOn": ["Build Program"],
       "group": "meson",
     }
