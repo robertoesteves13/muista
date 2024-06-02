@@ -1,18 +1,19 @@
 #pragma once
 
+#include <QGuiApplication>
+
 #include "common/course.hpp"
 
-#include <QApplication>
-
-class MuistaApp : public QApplication {
+class MuistaApp : public QGuiApplication {
     Q_OBJECT
   public:
     MuistaApp(int argc, char **argv);
     ~MuistaApp();
 
   public slots:
-    void CreateCourse(Course *course);
+      QVector<Course*> ListCourses();
+      void SaveCourse(Course *course);
 
   private:
-    void startDatabase();
+    void initDatabase();
 };
