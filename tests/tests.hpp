@@ -56,3 +56,29 @@ class DictionaryTest : public QObject {
         }
     }
 };
+
+class WordTrackerTest : public QObject {
+    Q_OBJECT;
+  private slots:
+      void GetBestWords() {
+        Dictionary *dict = new Dictionary(this);
+        dict->AddWord("cachorro", "dog");
+        dict->AddWord("gato", "cat");
+        dict->AddWord("colher", "spoon");
+        dict->AddWord("garfo", "fork");
+        dict->AddWord("porta", "door");
+        dict->AddWord("pote", "pot");
+
+
+        WordTracker* tracker = dict->Tracker();
+
+        Word* word = dict->SearchWord(QString("cachorro")).first();
+        tracker->AddWord(word);
+
+        WordTrack* track = tracker->GetTrack(word);
+        track->RegisterExercise(true);
+
+        WordProficiency expected = WordProficiency::Learning;
+        QCOMPARE(track->Proficiency(), expected);
+      }
+};

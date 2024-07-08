@@ -79,7 +79,9 @@ QString Word::Hash(QStringView value) {
     return str;
 }
 
-Dictionary::Dictionary(QObject *parent) : QObject(parent) {}
+Dictionary::Dictionary(QObject *parent) : QObject(parent) {
+    this->tracker = new WordTracker(this);
+}
 
 Dictionary::~Dictionary() {}
 

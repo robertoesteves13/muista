@@ -12,6 +12,15 @@ dictionary_test = executable(
   install: true,
 )
 
+word_tracker_test = executable(
+  'word_tracker',
+  'word_tracker.cpp', tests_moc,
+  include_directories: [muista_inc],
+  link_with: [lib_commons],
+  dependencies: [qt6_dep],
+  install: true,
+)
+
 word_test = executable(
   'word',
   'word.cpp', tests_moc,
@@ -23,3 +32,4 @@ word_test = executable(
 
 test('dictionary-test', dictionary_test)
 test('word-test', word_test)
+test('word-tracker-test', word_tracker_test)
