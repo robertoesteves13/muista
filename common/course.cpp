@@ -9,6 +9,11 @@ Course::Course(QObject *parent, int id, QString name, QString description)
     this->id = id;
     this->name = name;
     this->description = description;
+    this->dictionary = new Dictionary(this);
+}
+
+QVector<Word *> Course::SearchDefinition(QStringView word) {
+    return this->dictionary->SearchWord(word);
 }
 
 Course::~Course() {}

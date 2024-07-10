@@ -111,7 +111,7 @@ class WordTrack : public QObject {
     void RegisterExercise(bool isAnswerCorrect);
     void UpdateProficiency(WordProficiency new_prof);
 
-    // Calculate the score of how important the word is to learn between 0-1.
+    // Calculate the score of how important the word is to learn.
     // Lower means more important
     double CalculateScore();
 
@@ -133,6 +133,7 @@ class WordTracker : public QObject {
   public slots:
     void AddWord(Word *word);
     WordTrack *GetTrack(Word *word);
+    void RemoveTrack(WordTrack *track);
     QVector<WordTrack *> SelectBestWords(int amount);
 
   private:

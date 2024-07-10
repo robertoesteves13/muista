@@ -22,6 +22,13 @@ void WordTracker::AddWord(Word *word) {
     this->trackedWords.append(tracker);
 }
 
+void WordTracker::RemoveTrack(WordTrack *track) {
+    int i = this->trackedWords.indexOf(track);
+
+    if (i == -1) return;
+    this->trackedWords.remove(i);
+}
+
 WordTrack *WordTracker::GetTrack(Word *word) {
     for (int i = 0; i < this->trackedWords.length(); ++i) {
         if (this->trackedWords[i]->GetWord() == word) {

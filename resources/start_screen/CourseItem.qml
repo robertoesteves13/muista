@@ -2,37 +2,31 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Item {
+RowLayout {
     id: root
-    required property int identifier
-    required property string name
+
+    required property string courseName
     property real padding: 16
 
     width: parent.width
-    height: 24
+    Text {
+        Layout.alignment: Qt.AlignLeft
+        Layout.leftMargin: root.padding
 
-    RowLayout {
-        width: parent.width
+        text: root.courseName
+    }
 
-        Text {
-            Layout.alignment: Qt.AlignLeft
-            Layout.leftMargin: root.padding
+    Row {
+        Layout.alignment: Qt.AlignRight
+        Layout.rightMargin: root.padding
+        spacing: 16
 
-            text: root.name
+        Button {
+            text: "Open"
         }
 
-        Row {
-            Layout.alignment: Qt.AlignRight
-            Layout.rightMargin: root.padding
-            spacing: 16
-
-            Button {
-                text: "Open"
-            }
-
-            Button {
-                text: "Edit"
-            }
+        Button {
+            text: "Edit"
         }
     }
 }

@@ -6,7 +6,6 @@ import dev.robertoesteves.muista
 
 Item {
     id: root
-    property list<Course> courses
 
     ColumnLayout {
         anchors.fill: parent
@@ -22,24 +21,12 @@ Item {
             Layout.fillHeight: true
             contentWidth: parent.width
 
-            Column {
-                anchors.fill: parent
+            ListView {
+                id: courseList
                 Layout.fillWidth: true
-                topPadding: 12
-                bottomPadding: 12
-                spacing: 12
-
-                ListView {
-                    model: root.courses
-                    delegate: CourseItem {
-                        identifier: id
-                        name: name
-                    }
-                }
-
-                Rectangle {
-                    color: "red"
-                }
+                Layout.fillHeight: true
+                model: CourseListModel {}
+                delegate: CourseItem { }
             }
         }
 

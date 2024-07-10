@@ -1,10 +1,11 @@
 sources = files(
     'main.cpp',
     'application.cpp',
+    'course_list_model.cpp',
 )
 
 muista_moc = qt6.compile_moc( 
-  headers: ['../include/application.hpp' ],
+  headers: ['../include/application.hpp', '../include/models/course_list.hpp' ],
   dependencies: qt6_dep)
 
 executable(

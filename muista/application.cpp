@@ -47,7 +47,7 @@ void MuistaApp::SaveCourse(Course *course) {
     QDir coursesDir(path);
 
     QString dirName =
-        QString::number(course->Id()) + ":" + course->Name().toString();
+        QString::number(course->Id()) + ":" + course->Name();
 
     bool created;
     int inc = 0;

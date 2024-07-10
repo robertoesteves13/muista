@@ -1,5 +1,6 @@
 common_src = files(
   'course.cpp',
+  'lesson.cpp',
   'dictionary.cpp',
   'word_tracker.cpp',
 )

@@ -51,6 +51,8 @@ ApplicationWindow {
     }
 
     StartScreen {
+        objectName: "StartScreen"
         anchors.fill: parent
     }
+
 }
