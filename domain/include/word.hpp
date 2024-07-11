@@ -18,7 +18,7 @@ class Word : public QObject {
 
     QString getHash();
     int compareHash(Word* word);
-    int compareHash(QStringView word);
+    int compareHash(QStringView hash);
     static QString hash(QStringView value);
 
     QStringView getValue() { return m_value; };
