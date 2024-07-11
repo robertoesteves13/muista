@@ -2,7 +2,7 @@
 
 #include <QGuiApplication>
 
-#include "common/course.hpp"
+#include "course.hpp"
 
 class MuistaApp : public QGuiApplication {
     Q_OBJECT
@@ -10,8 +10,8 @@ class MuistaApp : public QGuiApplication {
     MuistaApp(int argc, char **argv);
     ~MuistaApp();
   public slots:
-      QVector<Course*> ListCourses();
-      void SaveCourse(Course *course);
+      QVector<Course*> listCourses();
+      void saveCourse(Course *course);
 
 
   private:

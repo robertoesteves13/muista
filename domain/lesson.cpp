@@ -1,4 +1,4 @@
-#include "common/course.hpp"
+#include "course.hpp"
 
 Lesson::Lesson(QObject *parent) : QObject(parent) {}
 

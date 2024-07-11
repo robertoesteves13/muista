@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/course.hpp"
+#include "course.hpp"
 #include <QAbstractListModel>
 
 class CourseListModel : public QAbstractListModel {
@@ -25,4 +25,3 @@ public slots:
 private:
     QList<Course*> m_data;
 };
-

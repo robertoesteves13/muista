@@ -1,4 +1,4 @@
-#include "common/dictionary.hpp"
+#include "dictionary.hpp"
 
 #include <QDebug>
 
@@ -11,36 +11,36 @@ Category::~Category() {}
 
 Definition::Definition(QObject *parent, QString pMeaning, QString pObservation)
     : QObject(parent) {
-    this->meaning = pMeaning;
-    this->observation = pObservation;
+    this->m_meaning = pMeaning;
+    this->m_observation = pObservation;
 }
 
 Definition::~Definition() {}
 
 Word::Word(QObject *parent, QString pValue) : QObject(parent) {
-    this->value = pValue;
+    this->m_value = pValue;
 }
 
 Word::~Word() {}
 
-void Word::AddChild(Word &pWord) { this->descendants.push_back(&pWord); }
+void Word::addChild(Word &pWord) { this->m_descendants.push_back(&pWord); }
 
-void Word::AddDefinition(QString pMeaning) {
+void Word::addDefinition(QString pMeaning) {
     Definition *definition = new Definition(this, pMeaning);
-    this->definitions.push_back(definition);
+    this->m_definitions.push_back(definition);
 }
 
-void Word::AddCategory(Category *category) {
-    this->categories.push_back(category);
+void Word::addCategory(Category *category) {
+    this->m_categories.push_back(category);
 }
 
-void Word::SetParent(Word &pWord) { this->antecessor = &pWord; }
+void Word::setWordParent(Word &pWord) { this->m_antecessor = &pWord; }
 
-QString Word::GetHash() { return Word::Hash(this->value); }
+QString Word::getHash() { return Word::hash(this->m_value); }
 
 // Calculates the hash of value by counting the K most frequent characters
 // on the word and also storing the repetition count.
-QString Word::Hash(QStringView value) {
+QString Word::hash(QStringView value) {
     struct WordHash {
         QChar ch;
         quint16 count;
@@ -80,21 +80,21 @@ QString Word::Hash(QStringView value) {
 }
 
 Dictionary::Dictionary(QObject *parent) : QObject(parent) {
-    this->tracker = new WordTracker(this);
+    this->m_tracker = new WordTracker(this);
 }
 
 Dictionary::~Dictionary() {}
 
-void Dictionary::AddWord(QString pWord, QString pDefinition) {
+void Dictionary::addWord(QString pWord, QString pDefinition) {
     Word *word = new Word(this, pWord);
-    word->AddDefinition(pDefinition);
+    word->addDefinition(pDefinition);
 
-    this->words.push_back(word);
+    this->m_words.push_back(word);
 }
 
-void Dictionary::RemoveWord(Word *pWord) { qFatal() << "not implemented"; }
+void Dictionary::removeWord(Word *pWord) { qFatal() << "not implemented"; }
 
-void Dictionary::RelateWords(std::string_view pAntecessor,
+void Dictionary::relateWords(std::string_view pAntecessor,
                              std::string_view pChild) {
     qFatal() << "not implemented";
 }
@@ -114,19 +114,19 @@ int dst_string(QStringView hash1, QStringView hash2) {
     return K_LIMIT - similarity;
 }
 
-QVector<Word *> Dictionary::SearchWord(QStringView search) {
-    QString searchHash = Word::Hash(search);
+QVector<Word *> Dictionary::searchWord(QStringView search) {
+    QString searchHash = Word::hash(search);
     QVector<Word *> result;
 
-    for (Word *word : this->words) {
-        if (dst_string(searchHash, word->GetHash()) < 7)
+    for (Word *word : this->m_words) {
+        if (dst_string(searchHash, word->getHash()) < 7)
             result.push_back(word);
     }
 
     std::sort(result.begin(), result.end(),
               [&searchHash](Word *w1, Word *w2) -> bool {
-                  return dst_string(searchHash, w1->GetHash()) <
-                         dst_string(searchHash, w2->GetHash());
+                  return dst_string(searchHash, w1->getHash()) <
+                         dst_string(searchHash, w2->getHash());
               });
 
     return result;

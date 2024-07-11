@@ -16,7 +16,7 @@
     {
       "label": "Run Program",
       "type": "shell",
-      "command": "./build/muista/muista",
+      "command": "./build/application/muista",
       "dependsOn": ["Build Program"],
       "group": "meson",
     },

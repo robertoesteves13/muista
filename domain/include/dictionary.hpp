@@ -1,8 +1,8 @@
 #pragma once
 
-#include "qdatetime.h"
 #include <string_view>
 
+#include <QDateTime>
 #include <QObject>
 #include <QVector>
 
@@ -13,9 +13,9 @@ class Category : public QObject {
     ~Category();
 
   public:
-    QString title;
-    QString description;
-    QVector<QString> possible_values;
+    QString m_title;
+    QString m_description;
+    QVector<QString> m_possibleValues;
 };
 
 class Definition : public QObject {
@@ -26,8 +26,8 @@ class Definition : public QObject {
     ~Definition();
 
   public:
-    QString meaning;
-    QString observation;
+    QString m_meaning;
+    QString m_observation;
 };
 
 class Word : public QObject {
@@ -36,23 +36,23 @@ class Word : public QObject {
     Word(QObject *parent = nullptr, QString pValue = nullptr);
     ~Word();
 
-    void AddChild(Word &pWord);
-    void AddDefinition(QString pMeaning);
-    void AddCategory(Category *category);
-    void SetParent(Word &pWord);
+    void addChild(Word &pWord);
+    void addDefinition(QString pMeaning);
+    void addCategory(Category *category);
+    void setWordParent(Word &pWord);
 
-    QString GetHash();
-    static QString Hash(QStringView value);
+    QString getHash();
+    static QString hash(QStringView value);
 
-    QStringView Value() { return value; };
+    QStringView getValue() { return m_value; };
 
   private:
-    QString value;
-    QVector<Definition *> definitions;
-    QVector<Category *> categories;
+    QString m_value;
+    QVector<Definition *> m_definitions;
+    QVector<Category *> m_categories;
 
-    Word *antecessor;
-    QVector<Word *> descendants;
+    Word *m_antecessor;
+    QVector<Word *> m_descendants;
 };
 
 class WordProficiency {
@@ -60,13 +60,13 @@ class WordProficiency {
     enum Value : uint8_t { New, Learning, Familiar, Master };
 
     WordProficiency() = default;
-    constexpr WordProficiency(Value aFruit) : value(aFruit) {}
+    constexpr WordProficiency(Value aFruit) : m_value(aFruit) {}
 
-    constexpr operator Value() const { return value; }
+    constexpr operator Value() const { return m_value; }
     explicit operator bool() const = delete;
 
-    quint32 Weight() {
-        switch (this->value) {
+    quint32 weight() {
+        switch (this->m_value) {
         case WordProficiency::New:
             return 0;
         case WordProficiency::Learning:
@@ -78,8 +78,8 @@ class WordProficiency {
         }
     }
 
-    WordProficiency Upgrade() {
-        switch (this->value) {
+    WordProficiency upgrade() {
+        switch (this->m_value) {
         case WordProficiency::New:
             return WordProficiency::Learning;
         case WordProficiency::Learning:
@@ -92,7 +92,7 @@ class WordProficiency {
     }
 
   private:
-    Value value;
+    Value m_value;
 };
 
 class WordTrack : public QObject {
@@ -102,25 +102,25 @@ class WordTrack : public QObject {
     explicit WordTrack(QObject *parent = nullptr, Word *word = nullptr);
     ~WordTrack();
 
-    WordProficiency Proficiency() { return this->proficiency; }
-    Word* GetWord() { return this->word; }
+    WordProficiency getProficiency() { return this->m_proficiency; }
+    Word *getWord() { return this->m_word; }
 
   signals:
 
   public slots:
-    void RegisterExercise(bool isAnswerCorrect);
-    void UpdateProficiency(WordProficiency new_prof);
+    void registerExercise(bool isAnswerCorrect);
+    void updateProficiency(WordProficiency new_prof);
 
     // Calculate the score of how important the word is to learn.
     // Lower means more important
-    double CalculateScore();
+    double calculateScore();
 
   private:
-    Word *word;
-    WordProficiency proficiency;
-    QDateTime started;
-    QDateTime lastTrained;
-    qint32 exercisesDone;
+    Word *m_word;
+    WordProficiency m_proficiency;
+    QDateTime m_started;
+    QDateTime m_lastTrained;
+    qint32 m_exercisesDone;
 };
 
 class WordTracker : public QObject {
@@ -131,14 +131,14 @@ class WordTracker : public QObject {
     ~WordTracker();
 
   public slots:
-    void AddWord(Word *word);
-    WordTrack *GetTrack(Word *word);
-    void RemoveTrack(WordTrack *track);
-    QVector<WordTrack *> SelectBestWords(int amount);
+    void addWord(Word *word);
+    WordTrack *getTrack(Word *word);
+    void removeTrack(WordTrack *track);
+    QVector<WordTrack *> selectBestWords(int amount);
 
   private:
-    QVector<WordTrack *> trackedWords;
-    qint32 wordCap;
+    QVector<WordTrack *> m_trackedWords;
+    qint32 m_wordCap;
 };
 
 class Dictionary : public QObject {
@@ -147,17 +147,17 @@ class Dictionary : public QObject {
     Dictionary(QObject *parent = nullptr);
     ~Dictionary();
 
-    void RelateWords(std::string_view pAntecessor, std::string_view pChild);
-    QVector<Word *> SearchWord(QStringView pWord);
+    void relateWords(std::string_view pAntecessor, std::string_view pChild);
+    QVector<Word *> searchWord(QStringView pWord);
 
-    WordTracker* Tracker() { return this->tracker; }
+    WordTracker *getTracker() { return this->m_tracker; }
 
   public slots:
-    void AddWord(QString pWord, QString pDefinition);
-    void RemoveWord(Word *pWord);
+    void addWord(QString pWord, QString pDefinition);
+    void removeWord(Word *pWord);
 
   private:
-    QVector<Word *> words;
-    QVector<Category *> categories;
-    WordTracker *tracker;
+    QVector<Word *> m_words;
+    QVector<Category *> m_categories;
+    WordTracker *m_tracker;
 };

@@ -15,9 +15,9 @@ QVariant CourseListModel::data(const QModelIndex &index, int role) const {
 
     switch (role) {
         case NameRole:
-            return this->m_data[index.row()]->Name();
+            return this->m_data[index.row()]->getName();
         case DescriptionRole:
-            return this->m_data[index.row()]->Description();
+            return this->m_data[index.row()]->getDescription();
     }
 
     return QVariant();

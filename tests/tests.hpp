@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/dictionary.hpp"
+#include "dictionary.hpp"
 
 #include <QObject>
 #include <QTest>
@@ -28,7 +28,7 @@ class WordTest : public QObject {
         QFETCH(Word *, word);
         QFETCH(QString, result);
 
-        QCOMPARE(word->GetHash(), result);
+        QCOMPARE(word->getHash(), result);
     }
 };
 
@@ -37,22 +37,22 @@ class DictionaryTest : public QObject {
   private slots:
     void SearchWord() {
         Dictionary *dict = new Dictionary(this);
-        dict->AddWord("cachorro", "dog");
-        dict->AddWord("gato", "cat");
-        dict->AddWord("colher", "spoon");
-        dict->AddWord("garfo", "fork");
-        dict->AddWord("porta", "door");
-        dict->AddWord("pote", "pot");
+        dict->addWord("cachorro", "dog");
+        dict->addWord("gato", "cat");
+        dict->addWord("colher", "spoon");
+        dict->addWord("garfo", "fork");
+        dict->addWord("porta", "door");
+        dict->addWord("pote", "pot");
 
         QVector<Word *> expected = QVector<Word *>();
         expected.push_back(new Word(this, "pote"));
         expected.push_back(new Word(this, "porta"));
 
-        QVector<Word *> result = dict->SearchWord(QString("po"));
+        QVector<Word *> result = dict->searchWord(QString("po"));
 
         QCOMPARE(result.length(), expected.length());
         for (int i = 0; i < result.length(); i++) {
-            QVERIFY(result[i]->Value() != expected[i]->Value());
+            QVERIFY(result[i]->getValue() != expected[i]->getValue());
         }
     }
 };
@@ -62,23 +62,22 @@ class WordTrackerTest : public QObject {
   private slots:
       void GetBestWords() {
         Dictionary *dict = new Dictionary(this);
-        dict->AddWord("cachorro", "dog");
-        dict->AddWord("gato", "cat");
-        dict->AddWord("colher", "spoon");
-        dict->AddWord("garfo", "fork");
-        dict->AddWord("porta", "door");
-        dict->AddWord("pote", "pot");
+        dict->addWord("cachorro", "dog");
+        dict->addWord("gato", "cat");
+        dict->addWord("colher", "spoon");
+        dict->addWord("garfo", "fork");
+        dict->addWord("porta", "door");
+        dict->addWord("pote", "pot");
 
+        WordTracker* tracker = dict->getTracker();
 
-        WordTracker* tracker = dict->Tracker();
+        Word* word = dict->searchWord(QString("cachorro")).first();
+        tracker->addWord(word);
 
-        Word* word = dict->SearchWord(QString("cachorro")).first();
-        tracker->AddWord(word);
-
-        WordTrack* track = tracker->GetTrack(word);
-        track->RegisterExercise(true);
+        WordTrack* track = tracker->getTrack(word);
+        track->registerExercise(true);
 
         WordProficiency expected = WordProficiency::Learning;
-        QCOMPARE(track->Proficiency(), expected);
+        QCOMPARE(track->getProficiency(), expected);
       }
 };

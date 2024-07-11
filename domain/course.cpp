@@ -1,4 +1,4 @@
-#include "common/course.hpp"
+#include "course.hpp"
 
 #include <QDebug>
 #include <QXmlStreamReader>
@@ -6,14 +6,21 @@
 
 Course::Course(QObject *parent, int id, QString name, QString description)
     : QObject(parent) {
-    this->id = id;
-    this->name = name;
-    this->description = description;
-    this->dictionary = new Dictionary(this);
+    this->m_id = id;
+    this->m_name = name;
+    this->m_description = description;
 }
 
-QVector<Word *> Course::SearchDefinition(QStringView word) {
-    return this->dictionary->SearchWord(word);
+void Course::setName(QString name)
+{
+    this->m_name = name;
+    emit this->courseChanged();
+}
+
+void Course::setDescription(QString description)
+{
+    this->m_description = description;
+    emit this->courseChanged();
 }
 
 Course::~Course() {}
@@ -24,9 +31,9 @@ void CourseSerializer::Serialize(QIODevice *device, Course *course) {
     w.writeStartDocument();
 
     w.writeStartElement("Course");
-    w.writeAttribute("id", QString::number(course->Id()));
-    w.writeTextElement("Name", course->Name());
-    w.writeTextElement("Description", course->Description());
+    w.writeAttribute("id", QString::number(course->getId()));
+    w.writeTextElement("Name", course->getName());
+    w.writeTextElement("Description", course->getDescription());
     w.writeEndElement();
 
     w.writeEndDocument();

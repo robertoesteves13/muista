@@ -11,9 +11,10 @@ project('muista', 'cpp',
 qt6 = import('qt6')
 qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Quick', 'Qml', 'Sql', 'Test'])
 
-muista_inc = include_directories('include')
+subdir('domain')
 
-subdir('common')
+muista_inc = domain_inc
+
 subdir('resources')
 subdir('tests')
-subdir('muista')
+subdir('application')

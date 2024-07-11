@@ -1,5 +1,4 @@
 #include "application.hpp"
-#include "common/course.hpp"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -26,7 +25,7 @@ MuistaApp::MuistaApp(int argc, char **argv) : QGuiApplication(argc, argv) {
 
 MuistaApp::~MuistaApp() {}
 
-QVector<Course *> MuistaApp::ListCourses() {
+QVector<Course *> MuistaApp::listCourses() {
     QString path = QStandardPaths::locate(DATA_LOCATION, "courses/");
     QDir coursesDir(path);
 
@@ -42,12 +41,12 @@ QVector<Course *> MuistaApp::ListCourses() {
     return courses;
 }
 
-void MuistaApp::SaveCourse(Course *course) {
+void MuistaApp::saveCourse(Course *course) {
     QString path = QStandardPaths::locate(DATA_LOCATION, "courses/");
     QDir coursesDir(path);
 
     QString dirName =
-        QString::number(course->Id()) + ":" + course->Name();
+        QString::number(course->getId()) + ":" + course->getName();
 
     bool created;
     int inc = 0;
