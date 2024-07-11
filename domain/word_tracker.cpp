@@ -1,5 +1,4 @@
-#include "dictionary.hpp"
-#include "qdatetime.h"
+#include "word_tracker.hpp"
 
 WordTracker::WordTracker(QObject *parent) : QObject(parent) {
     this->m_wordCap = 20;
