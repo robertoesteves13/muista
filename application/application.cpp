@@ -14,7 +14,7 @@ MuistaApp::MuistaApp(int argc, char **argv) : QGuiApplication(argc, argv) {
     QDir dir(path);
 
     if (path.isEmpty()) {
-        qFatal() << "Can't determine a path to store application files!";
+        qFatal("Can't determine a path to store application files!");
     }
 
     if (!dir.exists()) {

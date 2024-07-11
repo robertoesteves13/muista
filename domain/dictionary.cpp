@@ -1,6 +1,7 @@
 #include "dictionary.hpp"
 
 #include <QDebug>
+#include <QMessageLogger>
 
 Dictionary::Dictionary(QObject *parent) : QObject(parent) {
     this->m_tracker = new WordTracker(this);
@@ -15,11 +16,11 @@ void Dictionary::addWord(QString pWord, QString pDefinition) {
     this->m_words.push_back(word);
 }
 
-void Dictionary::removeWord(Word *pWord) { qFatal() << "not implemented"; }
+void Dictionary::removeWord(Word *pWord) { qFatal("not implemented"); }
 
 void Dictionary::relateWords(std::string_view pAntecessor,
                              std::string_view pChild) {
-    qFatal() << "not implemented";
+    qFatal("not implemented");
 }
 
 QVector<Word *> Dictionary::searchWord(QStringView search) {

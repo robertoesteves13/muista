@@ -24,7 +24,8 @@ void WordTracker::addWord(Word *word) {
 void WordTracker::removeTrack(WordTrack *track) {
     int i = this->m_trackedWords.indexOf(track);
 
-    if (i == -1) return;
+    if (i == -1)
+        return;
     this->m_trackedWords.remove(i);
 }
 
