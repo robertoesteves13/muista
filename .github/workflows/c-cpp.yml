@@ -27,8 +27,7 @@ jobs:
         run: sudo apt install qt6-base-dev
 
       - name: Install Meson dependencies
-        run: sudo apt-get install python3 python3-pip python3-setuptools \
-                       python3-wheel ninja-build
+        run: sudo apt-get install python3 python3-pip python3-setuptools python3-wheel ninja-build
 
       - name: Install Meson
         run: python -m pip install meson==1.4.0
