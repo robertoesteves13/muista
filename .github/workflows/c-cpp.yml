@@ -3,12 +3,16 @@ name: Meson Unit Tests
 on:
   push:
     paths:
-      - "**.c"
-      - "**.h"
+      - "**.cpp"
+      - "**.hpp"
+      - "**.qml"
+      - "**.build"
   pull_request:
     paths:
-      - "**.c"
-      - "**.h"
+      - "**.cpp"
+      - "**.hpp"
+      - "**.qml"
+      - "**.build"
 
 env:
   QT_QPA_PLATFORM: minimal
