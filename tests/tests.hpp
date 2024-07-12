@@ -31,6 +31,39 @@ class WordTest : public QObject {
 
         QCOMPARE(word->getHash(), result);
     }
+
+    void CategoryTest() {
+        Dictionary *dict = new Dictionary(this);
+        dict->addWord("cachorro", "dog");
+        dict->createCategory("Type", "Type of word");
+
+        Word *word = dict->searchWord(QString("cachorro")).first();
+        CategoryInfo *info = dict->getCategories().first();
+        info->addValue("Noun");
+        info->addValue("Verb");
+        info->addValue("Adjective");
+        info->addValue("Adverb");
+
+        {
+            bool result = word->addCategory(info, "Noun");
+            QCOMPARE(true, result);
+        }
+
+        {
+            Category *expected = new Category(this, info);
+            expected->setValue("Noun");
+
+            QVector<Category *> categories = word->getCategories();
+            QCOMPARE(1, categories.length());
+            QCOMPARE(expected->getValue(), categories.first()->getValue());
+        }
+
+        {
+            dict->removeCategory(info);
+            QCOMPARE(0, dict->getCategories().length());
+            QCOMPARE(0, word->getCategories().length());
+        }
+    }
 };
 
 class DictionaryTest : public QObject {
@@ -61,7 +94,7 @@ class DictionaryTest : public QObject {
 class WordTrackerTest : public QObject {
     Q_OBJECT;
   private slots:
-      void GetBestWords() {
+    void GetBestWords() {
         Dictionary *dict = new Dictionary(this);
         dict->addWord("cachorro", "dog");
         dict->addWord("gato", "cat");
@@ -70,15 +103,15 @@ class WordTrackerTest : public QObject {
         dict->addWord("porta", "door");
         dict->addWord("pote", "pot");
 
-        WordTracker* tracker = new WordTracker(this);
+        WordTracker *tracker = new WordTracker(this);
 
-        Word* word = dict->searchWord(QString("cachorro")).first();
+        Word *word = dict->searchWord(QString("cachorro")).first();
         tracker->addTrack(word);
 
-        WordTrack* track = tracker->getTrack(word);
+        WordTrack *track = tracker->getTrack(word);
         track->registerExercise(true);
 
         WordProficiency expected = WordProficiency::Learning;
         QCOMPARE(track->getProficiency(), expected);
-      }
+    }
 };

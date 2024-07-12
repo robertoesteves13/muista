@@ -16,8 +16,24 @@ void Word::addDefinition(QString pMeaning) {
     this->m_definitions.push_back(definition);
 }
 
-void Word::addCategory(Category *category) {
-    this->m_categories.push_back(category);
+bool Word::addCategory(CategoryInfo *info, QString value) {
+    Category *category = new Category(this, info);
+    if (category->setValue(value)) {
+        this->m_categories.append(category);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Word::removeCategory(Category* category) {
+    int i = this->m_categories.indexOf(category);
+    if (i >= 0) {
+        this->m_categories.remove(i);
+        return true;
+    }
+
+    return false;
 }
 
 void Word::setWordParent(Word &pWord) { this->m_antecessor = &pWord; }
@@ -65,9 +81,7 @@ QString Word::hash(QStringView value) {
     return str;
 }
 
-int Word::compareHash(Word *word) {
-    return this->compareHash(word->getHash());
-}
+int Word::compareHash(Word *word) { return this->compareHash(word->getHash()); }
 
 int Word::compareHash(QStringView paramHash) {
     QString currentHash = this->getHash();
@@ -77,8 +91,8 @@ int Word::compareHash(QStringView paramHash) {
     for (int i = 0; i < K_VALUE; i += 2) {
         for (int j = 0; j < K_VALUE; j += 2) {
             if (currentHash[i] == paramHash[j])
-                similarity +=
-                    currentHash[i + 1].digitValue() + paramHash[j + 1].digitValue();
+                similarity += currentHash[i + 1].digitValue() +
+                              paramHash[j + 1].digitValue();
         }
     }
 

@@ -16,11 +16,20 @@ class Dictionary : public QObject {
     void relateWords(std::string_view pAntecessor, std::string_view pChild);
     QVector<Word *> searchWord(QStringView pWord);
 
+    const QVector<CategoryInfo *> getCategories() { return m_categories; }
+
   public slots:
-    void addWord(QString pWord, QString pDefinition);
-    void removeWord(Word *pWord);
+    bool addWord(QString pWord, QString pDefinition);
+    bool removeWord(Word *pWord);
+
+    bool createCategory(QString name, QString description);
+    bool removeCategory(CategoryInfo *category);
+
+  signals:
+    void wordsChanged();
+    void categoriesChanged();
 
   private:
     QVector<Word *> m_words;
-    QVector<Category *> m_categories;
+    QVector<CategoryInfo *> m_categories;
 };

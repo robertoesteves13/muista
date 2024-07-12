@@ -13,7 +13,8 @@ class Word : public QObject {
 
     void addChild(Word &pWord);
     void addDefinition(QString pMeaning);
-    void addCategory(Category *category);
+    bool addCategory(CategoryInfo *info, QString value);
+    bool removeCategory(Category* category);
     void setWordParent(Word &pWord);
 
     QString getHash();
@@ -22,6 +23,7 @@ class Word : public QObject {
     static QString hash(QStringView value);
 
     QStringView getValue() { return m_value; };
+    const QVector<Category*> getCategories() { return m_categories; }
 
   private:
     QString m_value;

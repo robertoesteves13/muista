@@ -1,5 +1,6 @@
 domain_src = files(
   'category.cpp',
+  'category_info.cpp',
   'course.cpp',
   'definition.cpp',
   'dictionary.cpp',

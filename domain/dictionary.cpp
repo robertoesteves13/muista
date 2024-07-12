@@ -3,19 +3,32 @@
 #include <QDebug>
 #include <QMessageLogger>
 
-Dictionary::Dictionary(QObject *parent) : QObject(parent) {
-}
+Dictionary::Dictionary(QObject *parent) : QObject(parent) {}
 
 Dictionary::~Dictionary() {}
 
-void Dictionary::addWord(QString pWord, QString pDefinition) {
-    Word *word = new Word(this, pWord);
-    word->addDefinition(pDefinition);
+bool Dictionary::addWord(QString value, QString definition) {
+    for (qsizetype i = 0; i < this->m_words.length(); ++i) {
+        if (this->m_words[i]->getValue() == value)
+            return false;
+    }
+    Word *word = new Word(this, value);
+    word->addDefinition(definition);
 
-    this->m_words.push_back(word);
+    this->m_words.append(word);
+    emit wordsChanged();
+    return true;
 }
 
-void Dictionary::removeWord(Word *pWord) { qFatal("not implemented"); }
+bool Dictionary::removeWord(Word *word) {
+    int i = this->m_words.indexOf(word);
+    if (i < 0)
+        return false;
+
+    this->m_words.remove(i);
+    emit wordsChanged();
+    return true;
+}
 
 void Dictionary::relateWords(std::string_view pAntecessor,
                              std::string_view pChild) {
@@ -38,4 +51,40 @@ QVector<Word *> Dictionary::searchWord(QStringView search) {
               });
 
     return result;
+}
+
+bool Dictionary::createCategory(QString name, QString description) {
+    for (CategoryInfo *info : this->m_categories) {
+        if (info->getName() == name) {
+            return false;
+        }
+    }
+
+    CategoryInfo *info = new CategoryInfo(this);
+    info->setName(name);
+    info->setDescription(description);
+    this->m_categories.append(info);
+
+    emit categoriesChanged();
+    return true;
+}
+
+bool Dictionary::removeCategory(CategoryInfo *info) {
+    uint64_t i = this->m_categories.indexOf(info);
+    if (i < 0) {
+        return false;
+    }
+
+    for (Word* word : this->m_words) {
+        for (Category* category : word->getCategories()) {
+            if (category->getInfo() == info) {
+                word->removeCategory(category);
+                break;
+            }
+        }
+    }
+
+    this->m_categories.remove(i);
+    emit categoriesChanged();
+    return true;
 }
