@@ -20,8 +20,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
 public slots:
-    void appendData(Course* course);
+    void appendData(CourseInfo* course);
 
 private:
-    QList<Course*> m_data;
+    QList<CourseInfo*> m_data;
 };

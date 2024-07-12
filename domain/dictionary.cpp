@@ -4,7 +4,6 @@
 #include <QMessageLogger>
 
 Dictionary::Dictionary(QObject *parent) : QObject(parent) {
-    this->m_tracker = new WordTracker(this);
 }
 
 Dictionary::~Dictionary() {}

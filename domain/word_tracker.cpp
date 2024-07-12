@@ -16,7 +16,7 @@ QVector<WordTrack *> WordTracker::selectBestWords(int amount) {
     return bestWords;
 }
 
-void WordTracker::addWord(Word *word) {
+void WordTracker::addTrack(Word *word) {
     WordTrack *tracker = new WordTrack(this, word);
     this->m_trackedWords.append(tracker);
 }

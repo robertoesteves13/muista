@@ -13,9 +13,10 @@ class WordTracker : public QObject {
     ~WordTracker();
 
   public slots:
-    void addWord(Word *word);
+    void addTrack(Word *word);
     WordTrack *getTrack(Word *word);
     void removeTrack(WordTrack *track);
+
     QVector<WordTrack *> selectBestWords(int amount);
 
   private:

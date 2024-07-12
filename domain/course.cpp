@@ -4,28 +4,28 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-Course::Course(QObject *parent, int id, QString name, QString description)
+CourseInfo::CourseInfo(QObject *parent, int id, QString name, QString description)
     : QObject(parent) {
     this->m_id = id;
     this->m_name = name;
     this->m_description = description;
 }
 
-void Course::setName(QString name)
+void CourseInfo::setName(QString name)
 {
     this->m_name = name;
-    emit this->courseChanged();
+    emit this->dataChanged();
 }
 
-void Course::setDescription(QString description)
+void CourseInfo::setDescription(QString description)
 {
     this->m_description = description;
-    emit this->courseChanged();
+    emit this->dataChanged();
 }
 
-Course::~Course() {}
+CourseInfo::~CourseInfo() {}
 
-void CourseSerializer::Serialize(QIODevice *device, Course *course) {
+void CourseSerializer::Serialize(QIODevice *device, CourseInfo *course) {
     QXmlStreamWriter w(device);
     w.setAutoFormatting(true);
     w.writeStartDocument();
@@ -39,7 +39,7 @@ void CourseSerializer::Serialize(QIODevice *device, Course *course) {
     w.writeEndDocument();
 }
 
-Course *CourseSerializer::Deserialize(QIODevice *device, QObject *parent) {
+CourseInfo *CourseSerializer::Deserialize(QIODevice *device, QObject *parent) {
     QXmlStreamReader r(device);
     QMap<QString, QString> map;
 
@@ -81,6 +81,6 @@ Course *CourseSerializer::Deserialize(QIODevice *device, QObject *parent) {
         }
     }
 
-    return new Course(parent, map["id"].toInt(), map["name"],
+    return new CourseInfo(parent, map["id"].toInt(), map["name"],
                       map["description"]);
 }

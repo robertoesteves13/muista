@@ -10,8 +10,8 @@ class MuistaApp : public QGuiApplication {
     MuistaApp(int argc, char **argv);
     ~MuistaApp();
   public slots:
-      QVector<Course*> listCourses();
-      void saveCourse(Course *course);
+      QVector<CourseInfo*> listCourses();
+      void saveCourse(CourseInfo *course);
 
 
   private:

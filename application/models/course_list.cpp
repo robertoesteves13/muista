@@ -1,7 +1,7 @@
 #include "models/course_list.hpp"
 
 CourseListModel::CourseListModel(QObject *parent) : QAbstractListModel(parent) {
-    this->appendData(new Course(this, 0, "finnish", "test"));
+    this->appendData(new CourseInfo(this, 0, "finnish", "test"));
 }
 
 int CourseListModel::rowCount(const QModelIndex &parent) const {
@@ -38,7 +38,7 @@ QHash<int, QByteArray> CourseListModel::roleNames() const
     return result;
 }
 
-void CourseListModel::appendData(Course *course) {
+void CourseListModel::appendData(CourseInfo *course) {
     this->beginInsertRows(QModelIndex(), this->m_data.length(), this->m_data.length());
 
     this->m_data.append(course);

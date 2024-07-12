@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dictionary.hpp"
+#include "word_tracker.hpp"
 
 #include <QObject>
 #include <QTest>
@@ -69,10 +70,10 @@ class WordTrackerTest : public QObject {
         dict->addWord("porta", "door");
         dict->addWord("pote", "pot");
 
-        WordTracker* tracker = dict->getTracker();
+        WordTracker* tracker = new WordTracker(this);
 
         Word* word = dict->searchWord(QString("cachorro")).first();
-        tracker->addWord(word);
+        tracker->addTrack(word);
 
         WordTrack* track = tracker->getTrack(word);
         track->registerExercise(true);

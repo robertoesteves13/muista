@@ -25,23 +25,23 @@ MuistaApp::MuistaApp(int argc, char **argv) : QGuiApplication(argc, argv) {
 
 MuistaApp::~MuistaApp() {}
 
-QVector<Course *> MuistaApp::listCourses() {
+QVector<CourseInfo *> MuistaApp::listCourses() {
     QString path = QStandardPaths::locate(DATA_LOCATION, "courses/");
     QDir coursesDir(path);
 
-    QVector<Course *> courses;
+    QVector<CourseInfo *> courses;
     for (QFileInfo info : coursesDir.entryInfoList(
              QDir::Filter::Dirs | QDir::Filter::NoDotAndDotDot)) {
         QDir courseDir(info.absoluteFilePath());
         QFile manifest = QFile(courseDir.filePath("manifest.xml"));
-        Course *course = CourseSerializer::Deserialize(&manifest, this);
+        CourseInfo *course = CourseSerializer::Deserialize(&manifest, this);
         courses.push_back(course);
     }
 
     return courses;
 }
 
-void MuistaApp::saveCourse(Course *course) {
+void MuistaApp::saveCourse(CourseInfo *course) {
     QString path = QStandardPaths::locate(DATA_LOCATION, "courses/");
     QDir coursesDir(path);
 

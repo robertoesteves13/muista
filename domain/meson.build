@@ -3,7 +3,8 @@ domain_src = files(
   'course.cpp',
   'definition.cpp',
   'dictionary.cpp',
-  'lesson.cpp',
+  'reading_lesson.cpp',
+  'lesson_info.cpp',
   'word.cpp',
   'word_tracker.cpp',
 )

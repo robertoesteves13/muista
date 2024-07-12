@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     MuistaApp app(argc, argv);
 
     qmlRegisterModule("dev.robertoesteves.muista", 1, 0);
-    qmlRegisterType<Course>("dev.robertoesteves.muista", 1, 0, "Course");
+    qmlRegisterType<CourseInfo>("dev.robertoesteves.muista", 1, 0, "Course");
     qmlRegisterType<CourseListModel>("dev.robertoesteves.muista", 1, 0, "CourseListModel");
 
     QQmlApplicationEngine engine;
